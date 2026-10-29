@@ -1,3 +1,4 @@
+
 // Profile Card — practical task (React Native basics)
 // Follow the steps in README.md and build your solution in this file.
 import { View, Text, Image, StyleSheet } from 'react-native';
@@ -17,12 +18,20 @@ const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
 export default function App() {
   return (
     <View style={styles.screen}>
-      {/* TODO STEP 1: build the card with View and Text (name, role, location, bio) */}
+
+      {/* STEP 1: Profile card */}
+      <View style={styles.card}>
+        <Text style={styles.name}>Alex Rivera</Text>
+        <Text style={styles.role}>Mobile Developer</Text>
+        <Text style={styles.location}>Lisbon, Portugal</Text>
+        <Text style={styles.bio}>{BIO}</Text>
+      </View>
+
       {/* TODO STEP 2: add the banner and the avatar with Image */}
       {/* TODO STEP 3: header row and stats row with Flexbox */}
       {/* TODO STEP 4: online badge, skill tags and action buttons (layout) */}
       {/* TODO STEP 5: polish the styles (colors, typography, shadow) */}
-      <Text>TODO: build the profile card</Text>
+
     </View>
   );
 }
@@ -33,5 +42,23 @@ const styles = StyleSheet.create({
     paddingTop: 64,
     paddingHorizontal: 20,
     backgroundColor: '#EEF1F6',
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    borderRadius: 12,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  role: {
+    fontSize: 18,
+  },
+  location: {
+    color: 'gray',
+  },
+  bio: {
+    marginTop: 16,
   },
 });
