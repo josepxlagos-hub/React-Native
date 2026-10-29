@@ -15,19 +15,35 @@ const STATS = [
 
 const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
 
+
 export default function App() {
   return (
     <View style={styles.screen}>
 
-      {/* STEP 1: Profile card */}
       <View style={styles.card}>
-        <Text style={styles.name}>Alex Rivera</Text>
-        <Text style={styles.role}>Mobile Developer</Text>
-        <Text style={styles.location}>Lisbon, Portugal</Text>
-        <Text style={styles.bio}>{BIO}</Text>
+        {/* STEP 2: Banner */}
+        <Image
+          source={require('./assets/banner.png')}
+          style={styles.banner}
+          resizeMode="cover"
+        />
+
+        <View style={styles.content}>
+          {/* STEP 2: Avatar */}
+          <Image
+            source={require('./assets/avatar.png')}
+            style={styles.avatar}
+            resizeMode="cover"
+          />
+
+          {/* STEP 1: Profile information */}
+          <Text style={styles.name}>Alex Rivera</Text>
+          <Text style={styles.role}>Mobile Developer</Text>
+          <Text style={styles.location}>Lisbon, Portugal</Text>
+          <Text style={styles.bio}>{BIO}</Text>
+        </View>
       </View>
 
-      {/* TODO STEP 2: add the banner and the avatar with Image */}
       {/* TODO STEP 3: header row and stats row with Flexbox */}
       {/* TODO STEP 4: online badge, skill tags and action buttons (layout) */}
       {/* TODO STEP 5: polish the styles (colors, typography, shadow) */}
@@ -35,6 +51,7 @@ export default function App() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   screen: {
@@ -44,10 +61,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEF1F6',
   },
   card: {
-    backgroundColor: '#FFFFFF',
-    padding: 20,
-    borderRadius: 12,
-  },
+  backgroundColor: '#FFFFFF',
+  borderRadius: 12,
+},
+content: {
+  padding: 20,
+},
   name: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -61,4 +80,19 @@ const styles = StyleSheet.create({
   bio: {
     marginTop: 16,
   },
+
+  banner: {
+    width: '100%',
+    height: 120,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  avatar: {
+  width: 96,
+  height: 96,
+  borderRadius: 48,
+  borderWidth: 4,
+  borderColor: '#FFFFFF',
+  marginTop: -48,
+},
 });
