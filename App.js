@@ -16,11 +16,12 @@ const STATS = [
 const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
 
 
+
 export default function App() {
   return (
     <View style={styles.screen}>
-
       <View style={styles.card}>
+
         {/* STEP 2: Banner */}
         <Image
           source={require('./assets/banner.png')}
@@ -29,24 +30,42 @@ export default function App() {
         />
 
         <View style={styles.content}>
-          {/* STEP 2: Avatar */}
-          <Image
-            source={require('./assets/avatar.png')}
-            style={styles.avatar}
-            resizeMode="cover"
-          />
 
-          {/* STEP 1: Profile information */}
-          <Text style={styles.name}>Alex Rivera</Text>
-          <Text style={styles.role}>Mobile Developer</Text>
-          <Text style={styles.location}>Lisbon, Portugal</Text>
+          {/* STEP 3: Header row */}
+          <View style={styles.headerRow}>
+
+            <Image
+              source={require('./assets/avatar.png')}
+              style={styles.avatar}
+              resizeMode="cover"
+            />
+
+            <View style={styles.profileInfo}>
+              <Text style={styles.name}>Alex Rivera</Text>
+              <Text style={styles.role}>Mobile Developer</Text>
+              <Text style={styles.location}>Lisbon, Portugal</Text>
+            </View>
+
+          </View>
+
+          {/* STEP 1: Biography */}
           <Text style={styles.bio}>{BIO}</Text>
+
+          {/* STEP 3: Stats row */}
+          <View style={styles.statsRow}>
+            {STATS.map((stat) => (
+              <View key={stat.label} style={styles.statItem}>
+                <Text style={styles.statValue}>{stat.value}</Text>
+                <Text style={styles.statLabel}>{stat.label}</Text>
+              </View>
+            ))}
+          </View>
+
         </View>
       </View>
 
-      {/* TODO STEP 3: header row and stats row with Flexbox */}
-      {/* TODO STEP 4: online badge, skill tags and action buttons (layout) */}
-      {/* TODO STEP 5: polish the styles (colors, typography, shadow) */}
+      {/* TODO STEP 4: online badge, skill tags and action buttons */}
+      {/* TODO STEP 5: polish the styles */}
 
     </View>
   );
@@ -93,6 +112,46 @@ content: {
   borderRadius: 48,
   borderWidth: 4,
   borderColor: '#FFFFFF',
-  marginTop: -48,
+
+
+
+
+
+
+
+
+  
+ 
 },
+
+headerRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+
+profileInfo: {
+  flex: 1,
+  marginLeft: 12,
+},
+
+statsRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  marginTop: 20,
+},
+
+statItem: {
+  alignItems: 'center',
+},
+
+statValue: {
+  fontSize: 20,
+  fontWeight: 'bold',
+},
+
+statLabel: {
+  fontSize: 14,
+  color: 'gray',
+},
+
 });
