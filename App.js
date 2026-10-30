@@ -1,5 +1,11 @@
 
-import { View, Text, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 
 // Data to display. Do not change it.
 const BIO =
@@ -11,13 +17,19 @@ const STATS = [
   { label: 'Following', value: '180' },
 ];
 
-const SKILLS = [
-  'React Native',
-  'JavaScript',
-  'UI Design',
-  'Git',
-  'Flexbox',
-];
+const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
+
+// STEP 5: Centralized color palette
+const COLORS = {
+  background: '#EEF1F6',
+  card: '#FFFFFF',
+  text: '#111827',
+  muted: '#6B7280',
+  primary: '#2563EB',
+  primaryLight: '#DBEAFE',
+  border: '#E5E7EB',
+  online: '#22C55E',
+};
 
 export default function App() {
   return (
@@ -43,20 +55,16 @@ export default function App() {
                 style={styles.avatar}
                 resizeMode="cover"
               />
-
               <View style={styles.onlineBadge} />
             </View>
 
-            {/* STEP 1: Profile information */}
             <View style={styles.profileInfo}>
               <Text style={styles.name}>
                 Alex Rivera
               </Text>
-
               <Text style={styles.role}>
                 Mobile Developer
               </Text>
-
               <Text style={styles.location}>
                 Lisbon, Portugal
               </Text>
@@ -65,19 +73,26 @@ export default function App() {
           </View>
 
           {/* STEP 1: Biography */}
-          <Text style={styles.bio}>{BIO}</Text>
+          <Text
+            style={styles.bio}
+            numberOfLines={3}
+          >
+            {BIO}
+          </Text>
 
-          {/* STEP 3: Statistics */}
+          {/* STEP 3 and 5: Statistics */}
           <View style={styles.statsRow}>
-            {STATS.map((stat) => (
+            {STATS.map((stat, index) => (
               <View
                 key={stat.label}
-                style={styles.statItem}
+                style={[
+                  styles.stat,
+                  index > 0 && styles.statDivider,
+                ]}
               >
                 <Text style={styles.statValue}>
                   {stat.value}
                 </Text>
-
                 <Text style={styles.statLabel}>
                   {stat.label}
                 </Text>
@@ -88,10 +103,7 @@ export default function App() {
           {/* STEP 4: Skill tags */}
           <View style={styles.skills}>
             {SKILLS.map((skill) => (
-              <View
-                key={skill}
-                style={styles.skillTag}
-              >
+              <View key={skill} style={styles.skillTag}>
                 <Text style={styles.skillText}>
                   {skill}
                 </Text>
@@ -99,7 +111,7 @@ export default function App() {
             ))}
           </View>
 
-          {/* STEP 4: Action buttons layout */}
+          {/* STEP 4: Action buttons */}
           <View style={styles.actions}>
 
             <View
@@ -128,88 +140,53 @@ export default function App() {
 
         </View>
       </View>
-
-      {/* TODO STEP 5: Polish styles */}
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
 
-  // General screen
+  // STEP 5: Center the card
   screen: {
     flex: 1,
-    paddingTop: 64,
+    justifyContent: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#EEF1F6',
+    backgroundColor: COLORS.background,
   },
 
-  // Profile card
+  // STEP 5: Rounded card and shadow
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    ...Platform.select({
+      ios: {
+        shadowColor: COLORS.text,
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
   },
 
   content: {
     padding: 20,
   },
 
-  // Profile information
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-
-  role: {
-    fontSize: 18,
-  },
-
-  location: {
-    color: 'gray',
-  },
-
-  bio: {
-    marginTop: 16,
-  },
-
-  // Banner
+  // STEP 2: Banner
   banner: {
     width: '100%',
     height: 120,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
 
-  // Avatar
-  avatarContainer: {
-    width: 96,
-    height: 96,
-    position: 'relative',
-  },
-
-  avatar: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    borderWidth: 4,
-    borderColor: '#FFFFFF',
-  },
-
-  // Online badge
-  onlineBadge: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 3,
-    borderColor: '#FFFFFF',
-    backgroundColor: '#22C55E',
-  },
-
-  // Header row
+  // STEP 3: Header
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -220,51 +197,118 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
 
-  // Statistics
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
+  // STEP 2 and 4: Avatar
+  avatarContainer: {
+    width: 96,
+    height: 96,
+    marginTop: -48,
+    position: 'relative',
   },
 
-  statItem: {
+  avatar: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    borderWidth: 4,
+    borderColor: COLORS.card,
+  },
+
+  onlineBadge: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 3,
+    borderColor: COLORS.card,
+    backgroundColor: COLORS.online,
+  },
+
+  // STEP 5: Typography
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.text,
+  },
+
+  role: {
+    fontSize: 16,
+    color: COLORS.primary,
+    marginTop: 4,
+  },
+
+  location: {
+    fontSize: 14,
+    color: COLORS.muted,
+    marginTop: 4,
+  },
+
+  bio: {
+    marginTop: 20,
+    fontSize: 14,
+    lineHeight: 22,
+    color: COLORS.text,
+  },
+
+  // STEP 3 and 5: Stats with borders
+  statsRow: {
+    flexDirection: 'row',
+    marginTop: 20,
+    paddingVertical: 16,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: COLORS.border,
+  },
+
+  stat: {
+    flex: 1,
     alignItems: 'center',
+  },
+
+  statDivider: {
+    borderLeftWidth: 1,
+    borderLeftColor: COLORS.border,
   },
 
   statValue: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: COLORS.text,
   },
 
   statLabel: {
-    fontSize: 14,
-    color: 'gray',
+    fontSize: 12,
+    color: COLORS.muted,
+    marginTop: 4,
   },
 
-  // Skills
+  // STEP 4 and 5: Skills
   skills: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-    marginTop: 16,
+    marginTop: 20,
   },
 
   skillTag: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 16,
-    backgroundColor: '#EEF1F6',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 999,
+    backgroundColor: COLORS.primaryLight,
   },
 
   skillText: {
     fontSize: 12,
+    color: COLORS.primary,
+    fontWeight: '500',
   },
 
-  // Action buttons
+  // STEP 4 and 5: Buttons
   actions: {
     flexDirection: 'row',
     gap: 12,
-    marginTop: 20,
+    marginTop: 24,
   },
 
   button: {
@@ -274,24 +318,24 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#2563EB',
+    borderColor: COLORS.primary,
   },
 
   followButton: {
-    backgroundColor: '#2563EB',
+    backgroundColor: COLORS.primary,
   },
 
   messageButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.card,
   },
 
   followText: {
-    color: '#FFFFFF',
+    color: COLORS.card,
     fontWeight: '600',
   },
 
   messageText: {
-    color: '#2563EB',
+    color: COLORS.primary,
     fontWeight: '600',
   },
 
